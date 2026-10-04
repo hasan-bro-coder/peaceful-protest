@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b0hx46cfdae1b"]
+
+[ext_resource type="Script" uid="uid://bqyk87aacevrx" path="res://tutorial.gd" id="1_7n6eb"]
+[ext_resource type="Texture2D" uid="uid://dw80b6rs7jive" path="res://assets/tutorial/Screenshot 2026-10-04 205819.png" id="2_ehuit"]
+[ext_resource type="FontFile" uid="uid://qr6ryuktqkr2" path="res://assets/font/Peaberry-Bold.otf" id="2_yb1ct"]
+
+[sub_resource type="Theme" id="Theme_bkn3m"]
+default_font = ExtResource("2_yb1ct")
+
+[node name="tutorial" type="Node2D" unique_id=1291897980]
+script = ExtResource("1_7n6eb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1609332311]
+
+[node name="Control2" type="Control" parent="CanvasLayer" unique_id=2014002665]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control2" unique_id=630691276]
+custom_minimum_size = Vector2(350, 200)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.6
+anchor_top = -0.6125
+anchor_right = 15.45
+anchor_bottom = 8.4125
+offset_left = 301.0
+offset_top = 160.5
+offset_right = -301.0
+offset_bottom = -160.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ehuit")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1068808796]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -65.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Your Leading a peaceful protest. \\nfinish before the time ends"
+horizontal_alignment = 1
+
+[node name="next" type="Button" parent="CanvasLayer" unique_id=884906188]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -26.0
+offset_right = 25.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_bkn3m")
+text = "NEXT"
+
+[connection signal="pressed" from="CanvasLayer/next" to="." method="_on_next_pressed"]

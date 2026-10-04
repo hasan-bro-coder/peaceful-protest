@@ -8,20 +8,27 @@ const BULLET = preload("uid://50e7evae65rp")
 @onready var line: Line2D = $Line2D
 @onready var shoot_audio: AudioStreamPlayer = $ShootAudio
 
+var dead := false
+
 func retreat():
+	#top_level = true
+	dead = true
 	var tween = create_tween()
 	tween.tween_property(self, "position:y", 640, 2)
 	tween.tween_callback(queue_free)
-
+	await tween.finished
+	queue_free()
 
 
 
 func _ready() -> void:
-	timer.wait_time = randi_range(4,15)
-	timer.start()
+	#timer.wait_time = randi_range(4,15)
+	#timer.start()
 	pass
 	
 func _shoot() -> void:
+	if dead:
+		return
 	var bullet: Node2D = BULLET.instantiate()
 	bullet.global_position = muzzle.global_position
 	add_child(bullet)
@@ -37,7 +44,11 @@ func _shoot() -> void:
 			#Global.damage(20)
 	
 func _physics_process(delta: float) -> void:
-	if timer.time_left < 1:
+	if dead:
+		bar.hide()
+		line.hide()
+		return
+	if !timer.is_stopped():
 		bar.value = (1 - timer.time_left) * 100
 		line.show()
 		line.remove_point(0)
@@ -52,7 +63,6 @@ func _physics_process(delta: float) -> void:
 	
 func _on_timer_timeout() -> void:
 	_shoot()
-	timer.wait_time = randf_range(4,15)
 	pass
 
 #func shoot() -> void:

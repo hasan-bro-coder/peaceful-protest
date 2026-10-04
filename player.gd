@@ -35,5 +35,20 @@ func _physics_process(delta: float) -> void:
 	
 func countered():
 	shieldhit.play()
+	#Global.camera_shake()
+
 func parried():
 	parry.play()
+	sprite.material.set_shader_parameter("flash_amount", 1.0)
+
+	var tween := create_tween()
+	tween.tween_method(
+		func(value): sprite.material.set_shader_parameter("flash_amount", value),
+		1.0,
+		0.0,
+		0.2
+	)
+	#get_tree().paused = true
+	#await get_tree().create_timer(0.4).timeout
+	#get_tree().paused = false
+	Global.camera_shake()

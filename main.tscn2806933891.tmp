@@ -9,12 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bakrysordsjkv" path="res://assets/progress_under.png" id="6_5vw27"]
 [ext_resource type="Texture2D" uid="uid://dmtvyoxy3p1l2" path="res://assets/progress_over.png" id="7_5vw27"]
 [ext_resource type="Texture2D" uid="uid://c33sooi45cfd8" path="res://assets/progress.png" id="7_kek77"]
-[ext_resource type="Texture2D" uid="uid://dcy484pm4yabb" path="res://assets/heart.png" id="7_vivmo"]
 [ext_resource type="Script" uid="uid://toviigm8pndy" path="res://enemy_handler.gd" id="9_4c57u"]
 [ext_resource type="AudioStream" uid="uid://dmae72fqv73x3" path="res://assets/music/freesound_community-taxi-protest-distant-xy-24525.mp3" id="11_efxa6"]
 [ext_resource type="AudioStream" uid="uid://dw4dqdjv8vmpa" path="res://assets/music/hitHurt.wav" id="12_dg77c"]
-[ext_resource type="AudioStream" uid="uid://cltiit05mjn05" path="res://assets/music/win.mp3" id="13_w48qg"]
-[ext_resource type="Shader" uid="uid://dp8l87elxos1i" path="res://main.gdshader" id="14_vivmo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b8omw"]
 size = Vector2(140, 200)
@@ -85,16 +82,10 @@ _data = {
 
 [sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
 font = ExtResource("5_272bh")
-font_size = 30
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8omw"]
-shader = ExtResource("14_vivmo")
 
 [sub_resource type="LabelSettings" id="LabelSettings_wcx4a"]
 font = ExtResource("5_272bh")
 font_size = 50
-outline_size = 16
-outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Theme" id="Theme_bkn3m"]
 default_font = ExtResource("5_272bh")
@@ -176,16 +167,8 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
-text = "100"
+text = "2:00"
 label_settings = SubResource("LabelSettings_4c57u")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=902763972]
-offset_left = 565.0
-offset_top = 5.0
-offset_right = 580.0
-offset_bottom = 20.0
-texture = ExtResource("7_vivmo")
-expand_mode = 1
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1706363272]
 anchors_preset = 12
@@ -217,10 +200,6 @@ text = "||"
 position = Vector2(620, 100)
 script = ExtResource("9_4c57u")
 
-[node name="Timer" type="Timer" parent="EnemyHandler" unique_id=478397437]
-wait_time = 1.5
-autostart = true
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2112724325]
 stream = ExtResource("11_efxa6")
 volume_db = -25.0
@@ -229,18 +208,6 @@ parameters/looping = true
 
 [node name="hit" type="AudioStreamPlayer" parent="." unique_id=751788814]
 stream = ExtResource("12_dg77c")
-
-[node name="CanvasLayer5" type="CanvasLayer" parent="." unique_id=261641070]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer5" unique_id=1498147638]
-visible = false
-material = SubResource("ShaderMaterial_b8omw")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=293942485]
 visible = false
@@ -361,29 +328,8 @@ grow_vertical = 2
 theme = SubResource("Theme_bkn3m")
 text = "crowd audio"
 
-[node name="CheckButton2" type="CheckButton" parent="CanvasLayer2" unique_id=1292298750]
-process_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -92.0
-offset_top = 88.0
-offset_right = 88.0
-offset_bottom = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_bkn3m")
-text = "gameboy shader"
-
-[node name="Win" type="AudioStreamPlayer" parent="." unique_id=1747887728]
-stream = ExtResource("13_w48qg")
-
 [connection signal="pressed" from="CanvasLayer/pause" to="." method="_on_pause_pressed"]
-[connection signal="timeout" from="EnemyHandler/Timer" to="EnemyHandler" method="_on_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer3/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CanvasLayer4/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CanvasLayer2/resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer2/CheckButton" to="." method="_on_check_button_pressed"]
-[connection signal="pressed" from="CanvasLayer2/CheckButton2" to="." method="_on_check_button_2_pressed"]

@@ -17,11 +17,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			body.parried()
 			pass
 		elif not body.shield:
-			Global.damage(10)
+			Global.damage(5)
 			pass
 		else:
+			Global.push_back()
 			body.countered()
 	elif body and body.is_in_group("crowd"):
-			Global.damage(10)
+			Global.damage(5)
 	queue_free()
 	pass # Replace with function body.

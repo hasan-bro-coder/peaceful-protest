@@ -9,6 +9,8 @@
 [sub_resource type="LabelSettings" id="LabelSettings_wcx4a"]
 font = ExtResource("3_glbon")
 font_size = 50
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Theme" id="Theme_nlkkf"]
 default_font = ExtResource("3_glbon")
@@ -20,12 +22,20 @@ script = ExtResource("1_glbon")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1536859146]
 
 [node name="Sprite2D2" type="TextureRect" parent="CanvasLayer" unique_id=1568755601]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_jix8l")
+metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="TextureRect" parent="CanvasLayer/Sprite2D2" unique_id=473537333]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
+[node name="Sprite2D" type="TextureRect" parent="CanvasLayer" unique_id=473537333]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_fu7sn")
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1910841980]
@@ -54,13 +64,20 @@ text = "PEACEFUL
 label_settings = SubResource("LabelSettings_wcx4a")
 
 [node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=392293941]
-layout_mode = 0
-offset_left = 289.0
-offset_top = 196.0
-offset_right = 339.0
-offset_bottom = 221.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4546875
+anchor_top = 0.5222222
+anchor_right = 0.5453125
+anchor_bottom = 0.61388886
+offset_bottom = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_nlkkf")
 icon = ExtResource("4_jix8l")
 flat = true
+metadata/_edit_use_anchors_ = true
 
+[connection signal="mouse_entered" from="CanvasLayer/Control/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Control/Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]
