@@ -12,9 +12,11 @@ func _ready() -> void:
 
 func attack():
 	var e: Enemy = enemies.pick_random()
-	while !e.timer.is_stopped():
-		e = enemies.pick_random()
-	e.timer.start()
+	
+	if e:
+		while e and !e.timer.is_stopped():
+			e = enemies.pick_random()
+		e.timer.start()
 	
 func _on_timer_timeout() -> void:
 	attack()

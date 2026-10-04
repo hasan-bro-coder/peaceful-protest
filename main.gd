@@ -14,6 +14,7 @@ var total_time := 160.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.progress = 0.0
 	$AnimationPlayer.play("wave")
 	Global.camera = $Protest/Camera2D
 	pass # Replace with function body.
@@ -77,6 +78,8 @@ func _on_resume_pressed() -> void:
 
 
 func _on_restart_pressed() -> void:
+	get_tree().paused = false
+	
 	get_tree().reload_current_scene()
 	pass # Replace with function body.
 

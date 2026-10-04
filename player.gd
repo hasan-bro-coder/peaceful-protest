@@ -10,8 +10,10 @@ var is_parry_window := 0.0
 
 @onready var parry: AudioStreamPlayer = $parry
 @onready var shieldhit: AudioStreamPlayer = $shieldhit
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-
+func _ready() -> void:
+	animated_sprite_2d.play("idle")
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var e := event as InputEventMouseButton
@@ -19,9 +21,12 @@ func _input(event: InputEvent) -> void:
 			shield = true
 			sprite.texture = PLAYER_SHEILD
 			is_parry_window = 0.5
+			animated_sprite_2d.play("sheildup")
+			
 		else:
 			shield = false
 			sprite.texture = PLAYER
+			animated_sprite_2d.play("sheilddown")
 
 func _physics_process(delta: float) -> void:
 	if(is_parry_window > 0):
@@ -29,8 +34,10 @@ func _physics_process(delta: float) -> void:
 	var mouse = get_global_mouse_position().y
 	if(abs(global_position.y - mouse) > 5):
 		velocity.y = 600 * ( -1 if global_position.y > mouse else 1)
+		animated_sprite_2d.play("walk")
 	else:
 		velocity.y = 0
+		#animated_sprite_2d.play("idle")
 	move_and_slide()
 	
 func countered():
