@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://d0xgusm3o55oi"]
+
+[ext_resource type="Texture2D" uid="uid://bo7d20ok5dp2x" path="res://assets/crowdBG.png" id="1_fu7sn"]
+[ext_resource type="Script" uid="uid://u52vj62jxed4" path="res://main_menu.gd" id="1_glbon"]
+[ext_resource type="Texture2D" uid="uid://ccxkgv8cd7fby" path="res://assets/road.png" id="2_jix8l"]
+[ext_resource type="FontFile" uid="uid://qr6ryuktqkr2" path="res://assets/font/Peaberry-Bold.otf" id="3_glbon"]
+[ext_resource type="Texture2D" uid="uid://cef0j740jcppw" path="res://assets/playbutton.png" id="4_jix8l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wcx4a"]
+font = ExtResource("3_glbon")
+font_size = 50
+
+[sub_resource type="Theme" id="Theme_nlkkf"]
+default_font = ExtResource("3_glbon")
+default_font_size = 0
+
+[node name="MainMenu" type="Node2D" unique_id=1368713691]
+script = ExtResource("1_glbon")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1536859146]
+
+[node name="Sprite2D2" type="TextureRect" parent="CanvasLayer" unique_id=1568755601]
+texture = ExtResource("2_jix8l")
+
+[node name="Sprite2D" type="TextureRect" parent="CanvasLayer/Sprite2D2" unique_id=473537333]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("1_fu7sn")
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1910841980]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=2131449620]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -134.0
+offset_right = 127.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PEACEFUL
+ PROTEST"
+label_settings = SubResource("LabelSettings_wcx4a")
+
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=392293941]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 196.0
+offset_right = 339.0
+offset_bottom = 221.0
+theme = SubResource("Theme_nlkkf")
+icon = ExtResource("4_jix8l")
+flat = true
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]

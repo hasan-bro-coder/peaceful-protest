@@ -1,0 +1,298 @@
+[gd_scene format=3 uid="uid://beepwvmu7u7b3"]
+
+[ext_resource type="Texture2D" uid="uid://ccxkgv8cd7fby" path="res://assets/road.png" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://cprwgpioahg2y" path="res://main.gd" id="1_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://cbuaxilbt4s3g" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://ciidm3vt2bjjt" path="res://assets/crowd.png" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://csccnl64s4c3k" path="res://assets/roadside.png" id="3_4c57u"]
+[ext_resource type="FontFile" uid="uid://qr6ryuktqkr2" path="res://assets/font/Peaberry-Bold.otf" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://bakrysordsjkv" path="res://assets/progress_under.png" id="6_5vw27"]
+[ext_resource type="Texture2D" uid="uid://dmtvyoxy3p1l2" path="res://assets/progress_over.png" id="7_5vw27"]
+[ext_resource type="Texture2D" uid="uid://c33sooi45cfd8" path="res://assets/progress.png" id="7_kek77"]
+[ext_resource type="Script" uid="uid://toviigm8pndy" path="res://enemy_handler.gd" id="9_4c57u"]
+[ext_resource type="AudioStream" uid="uid://dmae72fqv73x3" path="res://assets/music/freesound_community-taxi-protest-distant-xy-24525.mp3" id="11_efxa6"]
+[ext_resource type="AudioStream" uid="uid://dw4dqdjv8vmpa" path="res://assets/music/hitHurt.wav" id="12_dg77c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8omw"]
+size = Vector2(140, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wcx4a"]
+size = Vector2(640, 80)
+
+[sub_resource type="Animation" id="Animation_1bvp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Protest/CharacterBody2D/crowd:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Protest/CharacterBody2D/crowd:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(70, 180)]
+}
+
+[sub_resource type="Animation" id="Animation_lquwl"]
+resource_name = "wave"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Protest/CharacterBody2D/crowd:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.04), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Protest/CharacterBody2D/crowd:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(70, 180), Vector2(68, 181), Vector2(70, 180)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mycd"]
+_data = {
+&"RESET": SubResource("Animation_1bvp3"),
+&"wave": SubResource("Animation_lquwl")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_4c57u"]
+font = ExtResource("5_272bh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_wcx4a"]
+font = ExtResource("5_272bh")
+font_size = 50
+
+[sub_resource type="Theme" id="Theme_bkn3m"]
+default_font = ExtResource("5_272bh")
+
+[node name="main" type="Node2D" unique_id=1890404115 node_paths=PackedStringArray("player", "progress_bar", "time_label", "health_label")]
+script = ExtResource("1_1bvp3")
+player = NodePath("Protest/player")
+progress_bar = NodePath("CanvasLayer/TextureProgressBar")
+time_label = NodePath("CanvasLayer/time")
+health_label = NodePath("CanvasLayer/health")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=476049219]
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="road" type="Sprite2D" parent="Parallax2D" unique_id=1751425963]
+position = Vector2(320, 180)
+texture = ExtResource("1_0xm2m")
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1343450687]
+scroll_scale = Vector2(1.4, 1.4)
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="road" type="Sprite2D" parent="Parallax2D2" unique_id=1180916979]
+position = Vector2(320, 180)
+texture = ExtResource("3_4c57u")
+
+[node name="Protest" type="Node2D" parent="." unique_id=788916007]
+
+[node name="Camera2D" type="Camera2D" parent="Protest" unique_id=127431798]
+position = Vector2(320, 180)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Protest" unique_id=1766821509 groups=["crowd"]]
+collision_layer = 64
+collision_mask = 64
+
+[node name="crowd" type="Sprite2D" parent="Protest/CharacterBody2D" unique_id=1075543544]
+position = Vector2(70, 180)
+texture = ExtResource("2_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Protest/CharacterBody2D" unique_id=1898238324]
+position = Vector2(70, 180)
+shape = SubResource("RectangleShape2D_b8omw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Protest" unique_id=1456384020]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Protest/StaticBody2D" unique_id=1204137872]
+position = Vector2(319, 40)
+shape = SubResource("RectangleShape2D_wcx4a")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Protest/StaticBody2D" unique_id=1906924902]
+position = Vector2(319, 322)
+shape = SubResource("RectangleShape2D_wcx4a")
+
+[node name="player" parent="Protest" unique_id=1753656775 instance=ExtResource("1_ig7tw")]
+position = Vector2(155, 180)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=587191566]
+libraries/ = SubResource("AnimationLibrary_7mycd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1174252487]
+
+[node name="time" type="Label" parent="CanvasLayer" unique_id=341631431]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "2:00"
+label_settings = SubResource("LabelSettings_4c57u")
+
+[node name="health" type="Label" parent="CanvasLayer" unique_id=1576208923]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "2:00"
+label_settings = SubResource("LabelSettings_4c57u")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1706363272]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 170.0
+offset_top = -40.0
+offset_right = -170.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 25.0
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("6_5vw27")
+texture_over = ExtResource("7_5vw27")
+texture_progress = ExtResource("7_kek77")
+
+[node name="pause" type="Button" parent="CanvasLayer" unique_id=68821818]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "||"
+
+[node name="EnemyHandler" type="Node2D" parent="." unique_id=1889042119]
+position = Vector2(620, 100)
+script = ExtResource("9_4c57u")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2112724325]
+stream = ExtResource("11_efxa6")
+volume_db = -25.0
+autoplay = true
+parameters/looping = true
+
+[node name="hit" type="AudioStreamPlayer" parent="." unique_id=751788814]
+stream = ExtResource("12_dg77c")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=293942485]
+
+[node name="Label" type="Label" parent="CanvasLayer3" unique_id=2136897442]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -63.0
+offset_right = 96.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_wcx4a")
+
+[node name="restart" type="Button" parent="CanvasLayer3" unique_id=421427017]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = 23.5
+offset_right = 34.0
+offset_bottom = 54.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_bkn3m")
+text = "restart"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1648743106]
+visible = false
+
+[node name="Label" type="Label" parent="CanvasLayer2" unique_id=1853621862]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -63.0
+offset_right = 96.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_wcx4a")
+
+[node name="resume" type="Button" parent="CanvasLayer2" unique_id=66024491]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = 23.5
+offset_right = 34.0
+offset_bottom = 54.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_bkn3m")
+text = "resume"
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer2" unique_id=1404481680]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = 56.0
+offset_right = 72.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_bkn3m")
+text = "crowd audio"
+
+[connection signal="pressed" from="CanvasLayer/pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="CanvasLayer3/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer2/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer2/CheckButton" to="." method="_on_check_button_pressed"]

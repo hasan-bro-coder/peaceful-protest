@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://fkjfolamwkxk"]
+
+[ext_resource type="Script" uid="uid://cmvygkjww63jh" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://d3e0oe38hfrqh" path="res://assets/enemy.png" id="2_qi2p4"]
+[ext_resource type="AudioStream" uid="uid://duhfrmpeiy2ft" path="res://assets/music/shoot.mp3" id="3_qi2p4"]
+
+[sub_resource type="Gradient" id="Gradient_4gyqm"]
+offsets = PackedFloat32Array(0.5135135, 0.5315315)
+colors = PackedColorArray(0.18039216, 0.1882353, 0.21568628, 1, 0.18039216, 0.1882353, 0.21568628, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wcx4a"]
+gradient = SubResource("Gradient_4gyqm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_qi2p4"]
+offsets = PackedFloat32Array(0.34234235, 0.36936936)
+colors = PackedColorArray(0.18039216, 0.1882353, 0.21568628, 1, 0.18039216, 0.1882353, 0.21568628, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iifgy"]
+gradient = SubResource("Gradient_qi2p4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_epg4t"]
+offsets = PackedFloat32Array(0.5135135, 0.5405405)
+colors = PackedColorArray(0.8745098, 0.03529412, 0.30980393, 1, 0.8745098, 0.03529412, 0.30980393, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3yqyl"]
+gradient = SubResource("Gradient_epg4t")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[node name="Enemy" type="Node2D" unique_id=347342436 node_paths=PackedStringArray("ray", "bar", "timer", "muzzle")]
+script = ExtResource("1_4gyqm")
+ray = NodePath("RayCast2D")
+bar = NodePath("TextureProgressBar")
+timer = NodePath("Timer")
+muzzle = NodePath("muzzle")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1282355019]
+position = Vector2(-8, -4)
+target_position = Vector2(-640, 0)
+collision_mask = 192
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1889962277]
+texture = ExtResource("2_qi2p4")
+
+[node name="gun" type="Sprite2D" parent="." unique_id=545911439]
+
+[node name="Line2D" type="Line2D" parent="." unique_id=603812132]
+visible = false
+top_level = true
+points = PackedVector2Array(-8, -4, -20, -4)
+width = 1.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1708988262]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -12.0
+offset_right = 41.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+step = 0.1
+value = 45.0
+rounded = true
+fill_mode = 4
+stretch_margin_left = 7
+stretch_margin_top = 7
+stretch_margin_right = 7
+stretch_margin_bottom = 7
+texture_under = SubResource("GradientTexture2D_wcx4a")
+texture_over = SubResource("GradientTexture2D_iifgy")
+texture_progress = SubResource("GradientTexture2D_3yqyl")
+
+[node name="Timer" type="Timer" parent="." unique_id=1668937590]
+
+[node name="muzzle" type="Marker2D" parent="." unique_id=523768584]
+position = Vector2(-8, -4)
+
+[node name="ShootAudio" type="AudioStreamPlayer" parent="." unique_id=426518182]
+stream = ExtResource("3_qi2p4")
+volume_db = -10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
